@@ -10,10 +10,11 @@ import { useRouter } from "next/router";
 import ReactTooltip from "react-tooltip";
 import { cartItem } from "../slices/basketSlice";
 import { useSelector } from "react-redux";
-function Header() {
+function Header({ setSearchText, searchText }) {
   const [session] = useSession();
   const router = useRouter();
   const items = useSelector(cartItem);
+
   return (
     <header>
       <div className="bg-amazon_blue flex flex-grow p-2">
@@ -32,9 +33,13 @@ function Header() {
             type="text"
             name=""
             id=""
+            onChange={(e) => setSearchText(e.target.value)}
             className="w-6 flex-grow p-2 rounded-l-md focus:outline-none whitespace-nowrap flex-shrink"
           />
-          <SearchIcon className="h-12 p-4" />
+          <SearchIcon
+            className="h-12 p-4"
+            onClick={() => console.log(searchText)}
+          />
         </div>
         <div className="flex text-white text-xs md:space-x-6 space-x-3  mx-6  whitespace-nowrap ">
           <div className="link" onClick={!session ? signIn : signOut}>

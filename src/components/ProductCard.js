@@ -9,7 +9,6 @@ function ProductCard({
 }) {
   const rating = useState(Math.floor(Math.random() * (5 - 1 + 1) + 1));
   const isPrime = useState(Math.random() < 0.5);
-  console.log(Math.floor(Math.random() * (5 - 1 + 1) + 1));
   const dispatch = useDispatch();
   const addItem = () => {
     const product = {

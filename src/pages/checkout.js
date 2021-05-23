@@ -10,7 +10,6 @@ function checkout() {
   const session = useSession();
   const items = useSelector(cartItem);
   const total = useSelector(Subtotal);
-  console.log(session);
   return (
     <div className="bg-gray-100">
       <Header />

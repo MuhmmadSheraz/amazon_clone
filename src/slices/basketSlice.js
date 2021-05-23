@@ -12,7 +12,6 @@ export const basketSlice = createSlice({
     addToBasket: (state, action) => {
       const { payload } = action;
       state.items = [...state.items, payload];
-      console.log(state);
     },
     removeFromBasket: (state, action) => {
       const { payload } = action;
