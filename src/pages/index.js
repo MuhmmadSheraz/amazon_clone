@@ -5,9 +5,10 @@ import ProductFeed from "../components/ProductFeed";
 
 export default function Home({ products }) {
   return (
+    
     <div className="bg-gray-100">
       <Head>
-        <title>Next JS StaterPack</title>
+        <title>Amazon</title>
       </Head>
       <Header />
       <main className="max-w-screen-2xl mx-auto">
