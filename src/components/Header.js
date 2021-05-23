@@ -10,10 +10,11 @@ import { useRouter } from "next/router";
 import ReactTooltip from "react-tooltip";
 import { cartItem } from "../slices/basketSlice";
 import { useSelector } from "react-redux";
-function Header({ setSearchText, searchText }) {
+function Header({ setSearchText, searchText, categories, showByCategory }) {
   const [session] = useSession();
   const router = useRouter();
   const items = useSelector(cartItem);
+  console.log(categories);
 
   return (
     <header>
@@ -68,20 +69,22 @@ function Header({ setSearchText, searchText }) {
           </div>
         </div>
       </div>
-      <div className="bg-amazon_blue-light text-white flex space-x-3 p-2 pl-6 text-xs sm:text-sm whitespace-nowrap ">
-        <p className="link flex items-center">
+      <div className="bg-amazon_blue-light text-white items-center flex space-x-3 p-2 pl-6 text-xs sm:text-sm whitespace-nowrap ">
+        <p
+          className="link flex items-center"
+          onClick={() => showByCategory("all")}
+        >
           <MenuIcon className="h-3 sm:h-6 mr-1" />
           All
         </p>
-        <p className="link">Prime Video</p>
-        <p className="link">Amazon Business</p>
-        <p className="link">Today's Deals</p>
-        <p className="link hidden lg:inline-flex">Electronics</p>
-        <p className="link hidden lg:inline-flex">Foods & Grocery</p>
-        <p className="link hidden lg:inline-flex">Prime</p>
-        <p className="link hidden lg:inline-flex">Buy Again</p>
-        <p className="link hidden lg:inline-flex">Shopper Toolkit</p>
-        <p className="link hidden lg:inline-flex">Health & Personal Care</p>
+        {categories?.map((category) => (
+          <p
+            className="link hidden lg:inline-flex"
+            onClick={() => showByCategory(category)}
+          >
+            {category.slice(0, 1).toUpperCase() + category.slice(1)}
+          </p>
+        ))}
       </div>
     </header>
   );
