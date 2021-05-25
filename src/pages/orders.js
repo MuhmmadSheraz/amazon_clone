@@ -21,7 +21,7 @@ function orders({ orders }) {
           Your Orders
         </h1>
         {user?.user ? (
-          <h2 className="font-semibold">17 Orders</h2>
+          <h2 className="font-semibold">{orders.length} Orders</h2>
         ) : (
           <h2>Sign In To See Your Order </h2>
         )}
