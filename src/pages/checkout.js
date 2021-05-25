@@ -30,7 +30,7 @@ function checkout() {
         console.error(result.error.message);
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
   };
   return (
@@ -62,7 +62,7 @@ function checkout() {
             Subtotal {"("}
             {items?.length}
             {" items )"}
-            {items.length ? total : ""}
+            {Math.trunc(items.length ? total : 0)}
           </h2>
           <button
             onClick={proceedToCheckout}

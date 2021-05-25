@@ -1,9 +1,10 @@
 import { CheckCircleIcon } from "@heroicons/react/solid";
-import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 import Header from "../components/Header";
 
 function success() {
+  const router = useRouter();
   return (
     <div className="bg-gray-100 h-screen">
       <Header />
@@ -21,7 +22,7 @@ function success() {
             deserunt, ipsum quaerat soluta praesentium esse?
           </p>
           <div className="w-full space-x-7">
-            <button className="addButton w-full ">Go to My Orders</button>
+            <button className="addButton w-full" onClick={()=>router.push("/orders  ")}>Go to My Orders</button>
           </div>
         </div>
       </main>

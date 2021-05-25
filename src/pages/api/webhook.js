@@ -25,8 +25,8 @@ const fullFillOrder = async (session) => {
       .collection("orders")
       .doc(session.id)
       .set({
-        amount: session.amount_total.price,
-        amount_shipping: session.amount_total.details.amount_shipping / 100,
+        amount: session.amount_total/100,
+        amount_shipping: session.total_details.amount_shipping / 100,
         timpestamp: admin.firestore.FieldValue.serverTimestamp(),
         images: JSON.parse(session.metadata.images),
       })

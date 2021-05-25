@@ -16,6 +16,7 @@
     "firebase-admin": "^9.8.0",
     "fuse.js": "^6.4.6",
     "micro": "^9.3.4",
+    "moment": "^2.29.1",
     "next": "latest",
     "next-auth": "^3.23.3",
     "react": "17.0.1",
@@ -24,7 +25,8 @@
     "react-redux": "7.2.2",
     "react-responsive-carousel": "^3.2.18",
     "react-tooltip": "^4.2.19",
-    "stripe": "^8.149.0"
+    "stripe": "^8.149.0",
+    "tailwind-scrollbar-hide": "^1.0.3"
   },
   "license": "MIT",
   "devDependencies": {

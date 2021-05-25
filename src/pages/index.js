@@ -6,6 +6,7 @@ import Fuse from "fuse.js";
 import { useEffect, useState } from "react";
 
 export default function Home({ products, categories }) {
+  console.log(process.env)
   const [searchText, setSearchText] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(products);
   const fuse = new Fuse(products, {
