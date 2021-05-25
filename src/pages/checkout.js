@@ -6,10 +6,33 @@ import Header from "../components/Header";
 import { cartItem } from "../slices/basketSlice";
 import { Subtotal } from "../slices/basketSlice";
 import { useSession } from "next-auth/client";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(
+  "pk_test_51IuZHHAFo27nDP2RkVC3lcTseoLJkcv7X2XDXj7UUoM04UZy59RjCqPC8tNFqcBLYf7R8Np0HdbZxl3NHzT0ZWWP00g3ICrFr1"
+);
+
 function checkout() {
   const session = useSession();
   const items = useSelector(cartItem);
   const total = useSelector(Subtotal);
+  const proceedToCheckout = async () => {
+    try {
+      const stripe = await stripePromise;
+      const checkoutSession = await axios.post("/api/create-checkout-session", {
+        items: items,
+        email: session[0].user.email,
+      });
+      const result = await stripe.redirectToCheckout({
+        sessionId: checkoutSession.data.id,
+      });
+      if (result.error) {
+        console.error(result.error.message);
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  };
   return (
     <div className="bg-gray-100">
       <Header />
@@ -42,6 +65,7 @@ function checkout() {
             {items.length ? total : ""}
           </h2>
           <button
+            onClick={proceedToCheckout}
             disabled={!session}
             className={` ${
               session[0]
