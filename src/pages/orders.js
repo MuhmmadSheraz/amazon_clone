@@ -11,7 +11,11 @@ function orders({ orders }) {
   const router = useRouter();
   const [user] = useSession();
   useEffect(() => {
-    getSession().then((session) => (!session ? window.location.href="/" : true));
+    getSession().then((session) => {
+      if (!session.user) {
+        return (window.location.href = "/");
+      }
+    });
   }, []);
   return (
     <div className="bg-100 ">
