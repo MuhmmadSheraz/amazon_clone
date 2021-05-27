@@ -12,7 +12,7 @@ function orders({ orders }) {
   const [user] = useSession();
   useEffect(() => {
     getSession().then((session) => {
-      if (!session.user) {
+      if (!session) {
         return (window.location.href = "/");
       }
     });
