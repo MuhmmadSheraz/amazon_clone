@@ -25,8 +25,8 @@ export default async (req, res) => {
     },
     line_items: stripeProducts,
     mode: "payment",
-    success_url: `https://amazon-clone-beta-eight.vercel.app/success`,
-    cancel_url: `https://amazon-clone-beta-eight.vercel.app/checkout`,
+    success_url: process.env.NEXTAUTH,
+    cancel_url: process.env.NEXTAUTH,
     metadata: {
       email,
       images: JSON.stringify(items.map((item) => item.image)),
