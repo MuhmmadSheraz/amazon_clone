@@ -28,7 +28,6 @@ export default function Home({ products, categories }) {
     if (text === "all") {
       return setFilteredProducts(products);
     }
-    console.log(products);
     const data = await fetch(
       `https://fakestoreapi.com/products/category/${text}`
     ).then((res) => res.json());
