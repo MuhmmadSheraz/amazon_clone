@@ -19,14 +19,28 @@ export const basketSlice = createSlice({
       let products = items.filter((item) => item.id !== payload);
       state.items = products;
     },
+    updateProductQuantity: (state, action) => {
+      console.log(action.payload);
+      const { items } = state;
+      const {
+        payload: { id, quantity },
+      } = action;
+      console.log(id, quantity)
+      let products = items.map((item) =>
+        item.id === id ? {...item,quantity: quantity} : item
+      );
+      state.items = products;
+      console.log(products);
+    },
   },
 });
 
-export const { addToBasket, removeFromBasket } = basketSlice.actions;
+export const { addToBasket, removeFromBasket, updateProductQuantity } =
+  basketSlice.actions;
 
 // Selectors - This is how we pull information from the Global store slice
 export const cartItem = (state) => state.basket.items;
 export const Subtotal = (state) =>
-  state.basket.items.reduce((total, item) => total + item.price, 0);
+  state.basket.items.reduce((total, item) => total + item.price*item.quantity, 0);
 
 export default basketSlice.reducer;

@@ -1,21 +1,25 @@
-import { StarIcon } from "@heroicons/react/solid";
+import { MinusIcon, PlusIcon, StarIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import React from "react";
 import Currency from "react-currency-formatter";
 import { useDispatch } from "react-redux";
-import { removeFromBasket } from "../slices/basketSlice";
+import { removeFromBasket, updateProductQuantity } from "../slices/basketSlice";
 
 const CartItem = ({ item }) => {
-  const { title, image, description, price, isPrime, id } = item;
+  const { title, image, description, price, isPrime, id, quantity } = item;
   const dispatch = useDispatch();
 
   const removeItem = () => {
     dispatch(removeFromBasket(id));
   };
+  const updateQuantity = (val) => {
+    if(val<1) return false
+    dispatch(updateProductQuantity({ id, quantity: val }));
+  };
   return (
-    <div className="grid grid-cols-5 mt-3">
+    <div className="grid sm:grid-cols-5 mt-3">
       <Image src={image} height={200} width={200} objectFit="contain" />
-      <div className="col-span-3 mx-5">
+      <div className="sm:col-span-3 mx-5">
         <h1 className="font-semibold">{title}</h1>
         <div className="flex my-1">
           {[Array(Math.floor(Math.random() * 10) + 5)].map((_, i) => (
@@ -39,8 +43,26 @@ const CartItem = ({ item }) => {
           </div>
         )}
       </div>
-      <div className="flex flex-col space-y-2  my-auto justify-self-end ">
-        <button className="addButton mt-auto" onClick={removeItem}>
+      <div className="flex sm:flex-col flex-row items-center space-x-2  sm:space-y-2   sm:justify-self-end mx-5 sm:my-auto">
+        <div className="flex justify-center space-x-1">
+          <button
+            onClick={() => updateQuantity(quantity + 1)}
+            className=" p-2 text-xs outline-none text-center bg-gradient-to-b from-yellow-200 to-yellow-400 border border-yellow-300 rounded-sm"
+          >
+            <PlusIcon className="h-5" />
+          </button>
+          <p className="bg-gray-100 p-2 outline-none w-1/2 text-center">{quantity}</p>
+          <button
+            onClick={() => updateQuantity(quantity - 1)}
+            className="  p-2 text-xs outline-none bg-gradient-to-b from-yellow-200 to-yellow-400 border border-yellow-300 rounded-sm"
+          >
+            <MinusIcon className="h-5" />
+          </button>
+        </div>
+        <button
+          className="addButton sm:mt-auto py-3 sm:py-2"
+          onClick={removeItem}
+        >
           Remove from basket
         </button>
       </div>

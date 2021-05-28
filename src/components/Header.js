@@ -14,7 +14,6 @@ function Header({ setSearchText, searchText, categories, showByCategory }) {
   const [session] = useSession();
   const router = useRouter();
   const items = useSelector(cartItem);
-  console.log(categories);
 
   return (
     <header>

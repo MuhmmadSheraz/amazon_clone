@@ -20,6 +20,7 @@ function ProductCard({
       category,
       rating,
       isPrime: isPrime[0],
+      quantity: 1,
     };
     dispatch(addToBasket(product));
   };
