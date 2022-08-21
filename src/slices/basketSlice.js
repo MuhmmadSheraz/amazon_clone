@@ -1,46 +1,46 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   items: [],
-};
+}
 
 export const basketSlice = createSlice({
-  name: "basket",
+  name: 'basket',
   initialState,
   reducers: {
     // Actions
     addToBasket: (state, action) => {
-      const { payload } = action;
-      state.items = [...state.items, payload];
+      const { payload } = action
+      state.items = [...state.items, payload]
     },
     removeFromBasket: (state, action) => {
-      const { payload } = action;
-      const { items } = state;
-      let products = items.filter((item) => item.id !== payload);
-      state.items = products;
+      const { payload } = action
+      const { items } = state
+      let products = items.filter((item) => item.id !== payload)
+      state.items = products
     },
     updateProductQuantity: (state, action) => {
-      console.log(action.payload);
-      const { items } = state;
+      const { items } = state
       const {
         payload: { id, quantity },
-      } = action;
-      console.log(id, quantity)
+      } = action
       let products = items.map((item) =>
-        item.id === id ? {...item,quantity: quantity} : item
-      );
-      state.items = products;
-      console.log(products);
+        item.id === id ? { ...item, quantity: quantity } : item
+      )
+      state.items = products
     },
   },
-});
+})
 
 export const { addToBasket, removeFromBasket, updateProductQuantity } =
-  basketSlice.actions;
+  basketSlice.actions
 
 // Selectors - This is how we pull information from the Global store slice
-export const cartItem = (state) => state.basket.items;
+export const cartItem = (state) => state.basket.items
 export const Subtotal = (state) =>
-  state.basket.items.reduce((total, item) => total + item.price*item.quantity, 0);
+  state.basket.items.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  )
 
-export default basketSlice.reducer;
+export default basketSlice.reducer

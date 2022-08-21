@@ -1,38 +1,37 @@
-import Head from "next/head";
-import Header from "../components/Header";
-import Banner from "../components/Banner";
-import ProductFeed from "../components/ProductFeed";
-import Fuse from "fuse.js";
-import { useEffect, useState } from "react";
+import Head from 'next/head'
+import Header from '../components/Header'
+import Banner from '../components/Banner'
+import ProductFeed from '../components/ProductFeed'
+import Fuse from 'fuse.js'
+import { useEffect, useState } from 'react'
 
 export default function Home({ products, categories }) {
-  console.log(process.env)
-  const [searchText, setSearchText] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [searchText, setSearchText] = useState('')
+  const [filteredProducts, setFilteredProducts] = useState(products)
   const fuse = new Fuse(products, {
     findAllMatches: true,
     shouldSort: true,
     minMatchCharLength: 3,
-    keys: ["title"],
+    keys: ['title'],
     includeScore: true,
-  });
-  const results = fuse.search(searchText);
+  })
+  const results = fuse.search(searchText)
   useEffect(() => {
-    let array = results.map((item) => item.item);
-    if (searchText === "") {
-      return setFilteredProducts(products);
+    let array = results.map((item) => item.item)
+    if (searchText === '') {
+      return setFilteredProducts(products)
     }
-    setFilteredProducts(array);
-  }, [searchText]);
+    setFilteredProducts(array)
+  }, [searchText])
   const showByCategory = async (text) => {
-    if (text === "all") {
-      return setFilteredProducts(products);
+    if (text === 'all') {
+      return setFilteredProducts(products)
     }
     const data = await fetch(
       `https://fakestoreapi.com/products/category/${text}`
-    ).then((res) => res.json());
-    setFilteredProducts(data);
-  };
+    ).then((res) => res.json())
+    setFilteredProducts(data)
+  }
   return (
     <div className="bg-gray-100">
       <Head>
@@ -49,17 +48,16 @@ export default function Home({ products, categories }) {
         <ProductFeed products={filteredProducts} />
       </main>
     </div>
-  );
+  )
 }
 // ServeSide Rendering
 export async function getServerSideProps(context) {
-  let products = await fetch("https://fakestoreapi.com/products").then((res) =>
+  let products = await fetch('https://fakestoreapi.com/products').then((res) =>
     res.json()
-  );
+  )
   let categories = await fetch(
-    "https://fakestoreapi.com/products/categories"
-  ).then((res) => res.json());
-  console.log(categories);
+    'https://fakestoreapi.com/products/categories'
+  ).then((res) => res.json())
 
-  return { props: { products, categories } };
+  return { props: { products, categories } }
 }
