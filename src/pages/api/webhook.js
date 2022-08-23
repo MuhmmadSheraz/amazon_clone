@@ -12,9 +12,11 @@ const app = !admin.apps.length
 
 // Establish connection to stripe
 const stripe = require('stripe')(
-  'sk_test_51IuZHHAFo27nDP2RBSopEKhCU2rKJaUWW3W98MZFxd3OlxwnuiTVsMkCpJGeNl0U5flMZc6PHSgM5z5S6m6zXTOS00URjFba1s'
+  'sk_test_51IuZHHAFo27nDP2RBSopEKhCU2rKJaUWW3W98MZFxd3OlxwnuiTVsMkCpJGeNl0U5flMZc6PHSgM5z5S6m6zXTOS00URjFba1s  '
 )
-const endPointSecret = 'whsec_44L20E2gdbVd7CRIaWubU3EeRTtE63cR'
+// const endPointSecret = 'whsec_44L20E2gdbVd7CRIaWubU3EeRTtE63cR'
+const endPointSecret =
+  'whsec_a27ca0cd3828634eabdde2e3568c2ede7830c8acd2304771c9a6f0ceacf6d709'
 const fullFillOrder = async (session) => {
   console.log('FullFill Order Session', session)
   try {
