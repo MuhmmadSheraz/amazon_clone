@@ -18,7 +18,6 @@ const stripe = require('stripe')(
 const endPointSecret =
   'whsec_a27ca0cd3828634eabdde2e3568c2ede7830c8acd2304771c9a6f0ceacf6d709'
 const fullFillOrder = async (session) => {
-  console.log('FullFill Order Session', session)
   try {
     await app
       .firestore()
@@ -33,13 +32,10 @@ const fullFillOrder = async (session) => {
         images: JSON.parse(session.metadata.images),
       })
       .then(() => {
-        console.log(`${session.id} has been added to Firestore`)
       })
       .catch((err) => {
-        console.log('Firebase Error***', err.message)
       })
   } catch (error) {
-    console.log(`Catch ${error.message}`)
   }
 }
 export default async (req, res) => {
@@ -53,7 +49,6 @@ export default async (req, res) => {
     try {
       event = stripe.webhooks.constructEvent(payload, sig, endPointSecret)
     } catch (error) {
-      console.log(error.message)
       return res.status(400).send(`WebHook Error`, error.message)
     }
     if (event.type === 'checkout.session.completed') {
@@ -62,7 +57,6 @@ export default async (req, res) => {
         .then(() => res.status(200))
         .catch((err) => res.status(400).send(`Webhook Error: ${err.message}`))
     } else {
-      console.log('Something went wrong*******')
     }
   }
 }
