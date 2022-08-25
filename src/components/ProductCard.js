@@ -10,7 +10,8 @@ function ProductCard({
 }) {
   const isPrime = useState(Math.random() < 0.5)
   const dispatch = useDispatch()
-  const addItem = () => {
+  const addItem = (e) => {
+    e.stopPropagation()
     const product = {
       id,
       title,
