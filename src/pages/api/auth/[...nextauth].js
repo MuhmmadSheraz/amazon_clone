@@ -6,8 +6,8 @@ export default NextAuth({
   providers: [
     Providers.Google({
       clientId:
-        '816941034347-8njv3rpsj6n8onpknicg7k4epabopqd2.apps.googleusercontent.com',
-      clientSecret: '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',
+        '816941034347-34f5cld78a26drpd6kh6vjiqjd8t148t.apps.googleusercontent.com',
+      clientSecret: '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',
     }),
   ],
 
