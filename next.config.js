@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    Host: 'http://localhost:3000',
+    Host: process.env.Host,
   },
   images: {
     domains: ['links.papareact.com', 'fakestoreapi.com'],
