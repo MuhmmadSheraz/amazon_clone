@@ -15,6 +15,18 @@ function Header({ setSearchText, categories, showByCategory }) {
   const router = useRouter()
   const items = useSelector(cartItem)
   const [selectedCategory, setSelectedCategory] = useState('all')
+  const handleSignIn = async (e) => {
+    e.preventDefault()
+    try {
+      if (session) {
+        await signOut()
+      } else {
+        await signIn()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <header>
       <div className="bg-amazon_blue flex flex-grow p-2">
@@ -44,7 +56,7 @@ function Header({ setSearchText, categories, showByCategory }) {
         )}
         {router.route !== '/' && <div className=" flex-grow " />}
         <div className="flex text-white text-xs md:space-x-6 space-x-3  mx-6  whitespace-nowrap ">
-          <div className="link" onClick={!session ? signIn : signOut}>
+          <div className="link" onClick={handleSignIn}>
             <p data-tip={!session ? 'Sign In' : session.user.name}>
               {!session ? 'Sign In' : session.user.name}
             </p>

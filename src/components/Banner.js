@@ -15,28 +15,28 @@ function Banner() {
         showThumbs={false}
         interval={5000}
       >
-        <div className="relative w-screen h-[90vh]">
+        <div className="relative w-screen h-[50vh] md:h-[90vh]">
           <Image
             layout="fill"
-            objectFit="fill"
+            objectFit="cover"
             loading="lazy"
             src="https://links.papareact.com/gi1"
             alt=""
           />
         </div>
-        <div className="relative w-screen h-[90vh]">
+        <div className="relative w-screen  h-[50vh] md:h-[90vh]">
           <Image
             layout="fill"
-            objectFit="fill"
+            objectFit="cover"
             loading="lazy"
             src="https://links.papareact.com/6ff"
             alt=""
           />
         </div>
-        <div className="relative w-screen h-[90vh]">
+        <div className="relative w-screen  h-[50vh] md:h-[90vh]">
           <Image
             layout="fill"
-            objectFit="fill"
+            objectFit="cover"
             loading="lazy"
             src="https://links.papareact.com/7ma"
             alt=""
