@@ -15,7 +15,8 @@ const stripe = require('stripe')(
   'sk_test_51IuZHHAFo27nDP2RBSopEKhCU2rKJaUWW3W98MZFxd3OlxwnuiTVsMkCpJGeNl0U5flMZc6PHSgM5z5S6m6zXTOS00URjFba1s  '
 )
 // const endPointSecret = 'whsec_44L20E2gdbVd7CRIaWubU3EeRTtE63cR'
-const endPointSecret = process.env.STRIPE_SECRET_KEY
+const endPointSecret =
+  'whsec_a27ca0cd3828634eabdde2e3568c2ede7830c8acd2304771c9a6f0ceacf6d709'
 const fullFillOrder = async (session) => {
   try {
     await app
@@ -31,8 +32,12 @@ const fullFillOrder = async (session) => {
         images: JSON.parse(session.metadata.images),
       })
       .then(() => {})
-      .catch((err) => {})
-  } catch (error) {}
+      .catch((err) => {
+        console.log(err)
+      })
+  } catch (error) {
+    console.log(error)
+  }
 }
 export default async (req, res) => {
   if (req.method === 'POST') {
@@ -53,6 +58,7 @@ export default async (req, res) => {
         .then(() => res.status(200))
         .catch((err) => res.status(400).send(`Webhook Error: ${err.message}`))
     } else {
+      console.log(event)
     }
   }
 }
