@@ -4,8 +4,11 @@ import Banner from '../components/Banner'
 import ProductFeed from '../components/ProductFeed'
 import Fuse from 'fuse.js'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addAllProducts } from '../slices/productsSlice'
 
 export default function Home({ products, categories }) {
+  const dispatch = useDispatch()
   const [searchText, setSearchText] = useState('')
   const [filteredProducts, setFilteredProducts] = useState(products)
   const fuse = new Fuse(products, {
@@ -17,6 +20,7 @@ export default function Home({ products, categories }) {
   })
   const results = fuse.search(searchText)
   useEffect(() => {
+    dispatch(addAllProducts(products))
     let array = results.map((item) => item.item)
     if (searchText === '') {
       return setFilteredProducts(products)
@@ -51,7 +55,7 @@ export default function Home({ products, categories }) {
   )
 }
 // ServeSide Rendering
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   let products = await fetch('https://fakestoreapi.com/products').then((res) =>
     res.json()
   )

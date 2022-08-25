@@ -10,12 +10,11 @@ import { useRouter } from 'next/router'
 import ReactTooltip from 'react-tooltip'
 import { cartItem } from '../slices/basketSlice'
 import { useSelector } from 'react-redux'
-function Header({ setSearchText, searchText, categories, showByCategory }) {
+function Header({ setSearchText, categories, showByCategory }) {
   const [session] = useSession()
   const router = useRouter()
   const items = useSelector(cartItem)
   const [selectedCategory, setSelectedCategory] = useState('all')
-
   return (
     <header>
       <div className="bg-amazon_blue flex flex-grow p-2">
@@ -29,16 +28,21 @@ function Header({ setSearchText, searchText, categories, showByCategory }) {
             className="cursor-pointer active:transform active:scale-90"
           />
         </div>
-        <div className="bg-yellow-400 flex-grow items-center h-10 hidden sm:flex rounded-md cursor-pointer hover:bg-yellow-500">
-          <input
-            type="text"
-            name=""
-            id=""
-            onChange={(e) => setSearchText(e.target.value)}
-            className="w-6 flex-grow p-2 rounded-l-md focus:outline-none whitespace-nowrap flex-shrink"
-          />
-          <SearchIcon className="h-12 p-4" />
-        </div>
+        {router.route == '/' && (
+          <div className="bg-yellow-400 flex-grow items-center h-10 hidden sm:flex rounded-md cursor-pointer hover:bg-yellow-500">
+            {router.route == '/' && (
+              <input
+                type="text"
+                name=""
+                id=""
+                onChange={(e) => setSearchText(e.target.value)}
+                className="w-6 flex-grow p-2 rounded-l-md focus:outline-none whitespace-nowrap flex-shrink"
+              />
+            )}
+            {router.route == '/' && <SearchIcon className="h-12 p-4" />}
+          </div>
+        )}
+        {router.route !== '/' && <div className=" flex-grow " />}
         <div className="flex text-white text-xs md:space-x-6 space-x-3  mx-6  whitespace-nowrap ">
           <div className="link" onClick={!session ? signIn : signOut}>
             <p data-tip={!session ? 'Sign In' : session.user.name}>
@@ -68,41 +72,43 @@ function Header({ setSearchText, searchText, categories, showByCategory }) {
           </div>
         </div>
       </div>
-      <div className="bg-amazon_blue-light text-white items-center flex space-x-3 p-2 pl-6 text-xs sm:text-sm whitespace-nowrap ">
-        <p
-          className={` link hidden lg:inline-flex lg:flex-col`}
-          onClick={() => {
-            setSelectedCategory('all')
-          }}
-        >
-          All
-          <span
-            className={`${
-              selectedCategory == 'all'
-                ? 'border-b-2 border-white h-1'
-                : 'hidden'
-            }`}
-          />
-        </p>
-        {categories?.map((category) => (
+      {router.route == '/' && (
+        <div className="bg-amazon_blue-light text-white items-center flex space-x-3 p-2 pl-6 text-xs sm:text-sm whitespace-nowrap ">
           <p
             className={` link hidden lg:inline-flex lg:flex-col`}
             onClick={() => {
-              showByCategory(category)
-              setSelectedCategory(category)
+              setSelectedCategory('all')
             }}
           >
-            {category.slice(0, 1).toUpperCase() + category.slice(1)}
+            All
             <span
               className={`${
-                category == selectedCategory
+                selectedCategory == 'all'
                   ? 'border-b-2 border-white h-1'
                   : 'hidden'
               }`}
             />
           </p>
-        ))}
-      </div>
+          {categories?.map((category) => (
+            <p
+              className={` link hidden lg:inline-flex lg:flex-col`}
+              onClick={() => {
+                showByCategory(category)
+                setSelectedCategory(category)
+              }}
+            >
+              {category.slice(0, 1).toUpperCase() + category.slice(1)}
+              <span
+                className={`${
+                  category == selectedCategory
+                    ? 'border-b-2 border-white h-1'
+                    : 'hidden'
+                }`}
+              />
+            </p>
+          ))}
+        </div>
+      )}
     </header>
   )
 }
