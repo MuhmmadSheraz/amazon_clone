@@ -43,7 +43,7 @@ function ProductCard({
         </div>
         <p className="text-xs line-clamp-2">{description}</p>
         <div className="text-black my-3">
-          <Currency quantity={price} currency={'PKR'} />
+          <Currency quantity={price} currency={'USD'} />
         </div>
         {isPrime[0] && (
           <div className="flex items-center space-x-2 mt-auto">

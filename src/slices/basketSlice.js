@@ -29,11 +29,19 @@ export const basketSlice = createSlice({
       )
       state.items = products
     },
+    cleanBasket: (state) => {
+      state.items = []
+      return state
+    },
   },
 })
 
-export const { addToBasket, removeFromBasket, updateProductQuantity } =
-  basketSlice.actions
+export const {
+  addToBasket,
+  removeFromBasket,
+  updateProductQuantity,
+  cleanBasket,
+} = basketSlice.actions
 
 // Selectors - This is how we pull information from the Global store slice
 export const cartItem = (state) => state.basket.items

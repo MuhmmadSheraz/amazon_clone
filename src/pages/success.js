@@ -1,15 +1,27 @@
-import { CheckCircleIcon } from "@heroicons/react/solid";
-import { useRouter } from "next/router";
-import React from "react";
-import Header from "../components/Header";
-
+import { CheckCircleIcon } from '@heroicons/react/solid'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
+import Header from '../components/Header'
+import confetti from 'canvas-confetti'
 function success() {
-  const router = useRouter();
+  const router = useRouter()
+  useEffect(() => {
+    if (router.query.id) {
+      confetti({
+        particleCount: 500,
+        startVelocity: 30,
+        spread: 1000,
+      })
+    } else {
+      router.push('/404')
+    }
+  }, [])
+
   return (
     <div className="bg-gray-100 h-screen">
       <Header />
-      <main>
-        <div className="flex flex-col  space-y-3 p-5 px-10 bg-white mx-auto">
+      <main className="flex justify-center items-center h-[90vh]">
+        <div className="flex flex-col justify-center items-center  space-y-3 p-5 px-10 bg-white mx-auto h-[30vh]">
           <div className="flex items-center">
             <CheckCircleIcon className="text-green-500 h-10" />
             <h2 className="text-xl md:text-3xl">
@@ -22,12 +34,17 @@ function success() {
             deserunt, ipsum quaerat soluta praesentium esse?
           </p>
           <div className="w-full space-x-7">
-            <button className="addButton w-full" onClick={()=>router.push("/orders  ")}>Go to My Orders</button>
+            <button
+              className="addButton w-full"
+              onClick={() => router.push('/orders  ')}
+            >
+              Go to My Orders
+            </button>
           </div>
         </div>
       </main>
     </div>
-  );
+  )
 }
 
-export default success;
+export default success

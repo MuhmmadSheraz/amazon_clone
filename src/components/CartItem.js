@@ -1,21 +1,21 @@
-import { MinusIcon, PlusIcon, StarIcon } from "@heroicons/react/solid";
-import Image from "next/image";
-import React from "react";
-import Currency from "react-currency-formatter";
-import { useDispatch } from "react-redux";
-import { removeFromBasket, updateProductQuantity } from "../slices/basketSlice";
+import { MinusIcon, PlusIcon, StarIcon } from '@heroicons/react/solid'
+import Image from 'next/image'
+import React from 'react'
+import Currency from 'react-currency-formatter'
+import { useDispatch } from 'react-redux'
+import { removeFromBasket, updateProductQuantity } from '../slices/basketSlice'
 
 const CartItem = ({ item }) => {
-  const { title, image, description, price, isPrime, id, quantity } = item;
-  const dispatch = useDispatch();
+  const { title, image, description, price, isPrime, id, quantity } = item
+  const dispatch = useDispatch()
 
   const removeItem = () => {
-    dispatch(removeFromBasket(id));
-  };
+    dispatch(removeFromBasket(id))
+  }
   const updateQuantity = (val) => {
-    if(val<1) return false
-    dispatch(updateProductQuantity({ id, quantity: val }));
-  };
+    if (val < 1) return false
+    dispatch(updateProductQuantity({ id, quantity: val }))
+  }
   return (
     <div className="grid sm:grid-cols-5 mt-3">
       <Image src={image} height={200} width={200} objectFit="contain" />
@@ -28,7 +28,7 @@ const CartItem = ({ item }) => {
         </div>
         <p className="text-xs line-clamp-2 my-1">{description}</p>
         <p className="font-semibold">
-          <Currency quantity={price} currency={"PKR"} />
+          <Currency quantity={price} currency={'USD'} />
         </p>
         {isPrime && (
           <div className="flex items-center space-x-2 mt-auto">
@@ -37,7 +37,6 @@ const CartItem = ({ item }) => {
               alt=""
               className="w-12"
               loading="lazy"
-              alt=""
             />
             <p>Free Next-day Delivery</p>
           </div>
@@ -51,7 +50,9 @@ const CartItem = ({ item }) => {
           >
             <PlusIcon className="h-5" />
           </button>
-          <p className="bg-gray-100 p-2 outline-none w-1/2 text-center">{quantity}</p>
+          <p className="bg-gray-100 p-2 outline-none w-1/2 text-center">
+            {quantity}
+          </p>
           <button
             onClick={() => updateQuantity(quantity - 1)}
             className="  p-2 text-xs outline-none bg-gradient-to-b from-yellow-200 to-yellow-400 border border-yellow-300 rounded-sm"
@@ -67,7 +68,7 @@ const CartItem = ({ item }) => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CartItem;
+export default CartItem

@@ -4,10 +4,12 @@ import Banner from '../components/Banner'
 import ProductFeed from '../components/ProductFeed'
 import Fuse from 'fuse.js'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addAllProducts } from '../slices/productsSlice'
+import { cartItem } from '../slices/basketSlice'
 
 export default function Home({ products, categories }) {
+  const state = useSelector(cartItem)
   const dispatch = useDispatch()
   const [searchText, setSearchText] = useState('')
   const [filteredProducts, setFilteredProducts] = useState(products)
@@ -56,12 +58,15 @@ export default function Home({ products, categories }) {
 }
 // ServeSide Rendering
 export async function getServerSideProps() {
-  let products = await fetch('https://fakestoreapi.com/products').then((res) =>
-    res.json()
-  )
-  let categories = await fetch(
-    'https://fakestoreapi.com/products/categories'
-  ).then((res) => res.json())
-
-  return { props: { products, categories } }
+  try {
+    let products = await fetch('https://fakestoreapi.com/products').then(
+      (res) => res.json()
+    )
+    let categories = await fetch(
+      'https://fakestoreapi.com/products/categories'
+    ).then((res) => res.json())
+    return { props: { products, categories } }
+  } catch (error) {
+    return console.log(error)
+  }
 }
